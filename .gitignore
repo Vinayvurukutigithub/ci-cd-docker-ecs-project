@@ -1,0 +1,12 @@
+# Ignore Terraform local state
+*.tfstate
+*.tfstate.backup
+.terraform/
+
+# Ignore logs and system files
+*.log
+*.swp
+.DS_Store
+
+# Ignore Docker
+*.tar
