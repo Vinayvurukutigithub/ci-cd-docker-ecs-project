@@ -62,15 +62,16 @@ pipeline {
         }
 
         stage('Terraform Init & Apply') {
-            steps {
-                dir('terraform') {
-                    sh '''
-                        terraform init
-                        terraform apply -auto-approve
-                    '''
-                }
-            }
+    steps {
+        dir('terraform') {
+            sh """
+                terraform init
+                terraform apply -auto-approve -var="image_url=${env.ECR_URL}:latest"
+            """
         }
+    }
+}
+
     }
 
     post {
