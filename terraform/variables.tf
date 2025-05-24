@@ -28,3 +28,8 @@ variable "container_port" {
   default = 80
 }
 
+variable "image_url" {
+  description = "Docker image URL with tag"
+  type        = string
+}
+
