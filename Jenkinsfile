@@ -12,7 +12,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
+                git 'https://github.com/Vinayvurukutigithub/ci-cd-docker-ecs-project.git'
             }
         }
 
