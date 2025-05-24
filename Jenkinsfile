@@ -62,16 +62,15 @@ pipeline {
         }
 
         stage('Terraform Init & Apply') {
-    steps {
-        dir('terraform') {
-            sh """
-                terraform init
-                terraform apply -auto-approve -var="image_url=${env.ECR_URL}:latest"
-            """
+            steps {
+                dir('terraform') {
+                    sh """
+                        terraform init
+                        terraform apply -auto-approve -var="image_url=${env.ECR_URL}:latest"
+                    """
+                }
+            }
         }
-    }
-}
-
     }
 
     post {
@@ -79,7 +78,14 @@ pipeline {
             echo "✅ Deployment complete!"
         }
         failure {
-            echo "❌ Something went wrong."
+            echo "❌ Something went wrong. Cleaning up resources..."
+            dir('terraform') {
+                // Automatically destroy on failure
+                sh """
+                    terraform destroy -auto-approve -var="image_url=${env.ECR_URL}:latest"
+                """
+            }
         }
     }
 }
+
